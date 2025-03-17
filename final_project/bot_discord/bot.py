@@ -1,6 +1,10 @@
 import discord
 import requests
 import json
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 def get_memes():
@@ -23,6 +27,12 @@ class MyClient(discord.Client):  # classe para interagir com a api do discord.
 intents = discord.Intents.default()
 intents.message_content = True
 
+
 client = MyClient(intents=intents)
-client.run('MTM1MDE2ODczMTI0NjEzNzM1NA.GtiNUX.'
-           'VcZOQ8xeTDsmnLWe8o0TXBiVNdRrMJRFQ7vDaE')
+
+DISCORD_TOKEN = os.environ.get('DISCORD_TOKEN')
+
+if DISCORD_TOKEN:
+    client.run(DISCORD_TOKEN)
+else:
+    print('Erro na variável de ambiente do DISCORD.')
